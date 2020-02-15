@@ -2,90 +2,105 @@
 
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
+	concat = require('gulp-concat'),
+	replace = require('gulp-replace'),
+	cssNano = require('gulp-cssnano');
+	sourcemaps = require('gulp-sourcemaps'),
+	postcss = require('gulp-postcss'),
+	uglify = require('gulp-uglify'),
 	autoprefixer = require('gulp-autoprefixer'),
 	watch = require('gulp-watch'),
 	imagemin = require('gulp-imagemin'),
 	newer = require('gulp-newer'),
-	browserify = require('gulp-browserify'),
+	browserify = require('browserify'),
 	browserSync = require('browser-sync').create()
 	htmlclean = require('gulp-htmlclean')
 
-gulp.task('browserSync', (done)=> {
+const filePaths = {
+	scssPath : 'src/sass/**/*.scss',
+	jsPath : 'src/js/bundle.js',
+	imgPath : 'src/img/*',
+	htmlPath : 'src/img/*',
+	jsonPath : './src/**/*.json'
+}
+
+function browserSyncTask() {
+
 	browserSync.init({
 		server:
 		{
 			baseDir:'./dist'
-        }
+		}
 	})
-	done()
-})
+}
 
-// Run scss files through autofixer
-gulp.task('sass', (done)=> {
-	gulp.src('src/sass/**/*.scss')
-		.pipe(sass())
-		.pipe(autoprefixer())
-        .pipe(gulp.dest('dist/css'))
-	done()
-	
-})
+// // Run scss files through autofixer
+function sassTask() {
+
+	return gulp.src(filePaths.scssPath)
+	.pipe(sass())
+	.pipe(sourcemaps.init())
+	// .pipe(postcss([autoprefixer(), cssNano() ]))
+	.pipe(autoprefixer())
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest('dist/css'))
+}
+
 // Bundle js files for production
-gulp.task('bundle', (done)=>
-{
-	gulp.src('src/js/bundle.js')
-		.pipe(browserify())
+function scriptTask() {
+
+	return gulp.src(filePaths.jsPath)
+		.pipe(concat('all.js'))
+		.pipe(uglify())
 		.pipe(gulp.dest('dist/js'))
-	done();
-})
+}
 
 // Compress images for productions 
-gulp.task('images', (done)=> 
-{
-	
-	gulp.src('src/img/*')
+function imageTask() {
+
+	return gulp.src(filePaths.imgPath)
 		.pipe(newer('dist/img/'))
 		.pipe(imagemin({optimizationLevel: 5}))
 		.pipe(gulp.dest('dist/img'));
-		done();
-})
+
+}
+
 // Clean HTML files
-gulp.task('html', (done)=>
-{
-	gulp.src('./src/*.html')
-	.pipe(newer('dist/'))
-	.pipe(htmlclean())
-	.pipe(gulp.dest('dist/'))
-	done();
-})
-gulp.task('json', (done)=>
-{
-	
-	gulp.src('./src/**/*.json')
-	.pipe(newer('dist/'))
-	.pipe(gulp.dest('dist/'))
-	done();
+function htmlTask() {
 
-})
+	return gulp.src(filePaths.htmlPath)
+		.pipe(newer('dist/'))
+		.pipe(htmlclean())
+		.pipe(gulp.dest('dist/'))
 
-gulp.task('watch', gulp.series('sass', (done)=>
-{
-	browserSync.init({
-		server:
-		{
-			baseDir:'./dist'
-        }
-	});
-	//gulp.watch( 'js/**/*.js', 'sass/**/*.scss', 'src/**/*.html', 'json/**/*.json' , gulp.series('sass','bundle','images', 'html', 'json'))
-	gulp.watch( 'sass/**/*.scss',  gulp.series('sass'))
-	gulp.watch( 'js/**/*.js',  gulp.series('bundle'))
-	gulp.watch( 'src/**/*.html',  gulp.series('html'))
-	gulp.watch( 'json/**/*.json',  gulp.series('json'))
-	done();
-}))
+}
 
-gulp.task('run',  gulp.series('watch'))
+// Update json files
+function jsonTask() {
 
-gulp.task('default', gulp.series('run'))
+	return gulp.src(filePaths.jsonPath)
+		.pipe(newer('dist/'))
+		.pipe(gulp.dest('dist/'))
+
+}
+
+// Cach Buster to append time string to js and css files
+const cbString = new Date().getTime();
+function cacheBuster() {
+	return src(['index.html'])
+	.pipe(replace(/cb=\d+/g, 'cb=' + cbString))
+	.pipe(gulp.dest('.'))
+}
+
+function watchTasks() {
+	watch([filePaths.jsPath, filePaths.scssPath, filePaths.htmlPath, filePaths.imgPath, filePaths.jsonPath],
+	gulp.parallel(scriptTask, sassTask, htmlTask, jsonTask, browserSyncTask));
+}
+
+exports.default = gulp.series(
+	gulp.parallel(scriptTask, sassTask, htmlTask, imageTask, jsonTask, browserSyncTask),
+	watchTasks
+);
 
 
 
