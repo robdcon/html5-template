@@ -1,0 +1,43 @@
+$breakpoint-desktop: 1200px;
+
+$breakpoint-laptop: 1080px;
+
+$breakpoint-tablet: 768px;
+
+$breakpoint-mobile: 640px;
+
+@mixin media($break)
+{
+	
+}
+
+@media screen and (max-width: 1920px) {
+
+
+
+}
+@media screen and (max-width: 1366px) {
+
+
+
+}
+@media screen and (max-width: 1080px) {
+
+
+
+ }
+ @media screen and (max-width: 960px) {
+
+
+
+ }
+ @media screen and (max-height: 768px) {
+
+
+
+ }
+ @media screen and (max-height: 360px) {
+
+
+
+ }

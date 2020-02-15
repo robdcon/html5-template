@@ -1,0 +1,19 @@
+
+$link-initial: #ffffff;
+$link-hover: #ff0000;
+$link-active: $link-hover;
+$link-visited: $link-hover;
+
+button
+{
+	font-family:$main_font;
+	background-color:transparent;
+	border:none;
+	color: $link-initial;
+	text-decoration:none;
+
+	&:hover{ color: $link-hover };
+	&:active{ color: $link-hover };
+	transition: all, 0.25s;
+	
+}

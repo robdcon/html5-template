@@ -1,0 +1,82 @@
+/* SIDEBAR NAV */
+ 
+$sidebarWidth : (100vw / 2.6);
+
+.open
+{
+	transform: translateX($sidebarWidth);
+}
+.sidebar-icon-active
+{
+	transform: translateX(-35px);
+}
+
+
+.sidebar
+{
+	position:absolute;
+	height: 100%;
+	width: $sidebarWidth;
+	background-color: #000;
+	margin-left:-$sidebarWidth;
+	z-index:99999;
+	transition: all .3s ease;
+	
+
+	nav
+	{
+		ul
+		{
+			padding:1em 0;
+			width:100%;
+		}
+
+		li
+		{
+			display:block;
+			padding:.5em;
+
+			a
+			{
+				text-decoration:none;
+			}
+		}
+
+	}
+	.sidebar-icon
+	{
+		height: 30px;
+	    width: 30px;
+	    position: absolute;
+	    top: 5px;
+	    right: -35px;
+	    max-width: 10%;
+	    transition: all 0.5s;
+	    background-image: url('../img/menu-icon.png');
+	    background-size: cover;
+	   /* &:hover
+	    {
+	    	background-image:url('../img/menu-icon-hover.png');
+	    }*/
+
+	    @media(max-width:411px)
+	    {
+	    	position: absolute;
+		    top: 5px;
+		    right: -20%;
+		    max-width: 30px;
+		    margin-right:-5px;
+	    }
+	}
+}
+.animate-icon
+{
+	animation: animMenuIcon 0.5s 1;
+}
+@keyframes animMenuIcon 
+{
+	
+	0%{background-image:url('../img/menu-icon.png');}
+	50%{background-image:url('../img/menu-icon-hover.png');}
+	100%{background-image:url('../img/menu-icon.png');}
+}

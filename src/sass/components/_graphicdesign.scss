@@ -1,0 +1,95 @@
+/* WEB DEVELOPMENT IFRAME PAGE */
+#graphic-design
+{
+	display: none;
+
+	text-align: center;
+	width: 100%;
+	height:100%;
+	margin: 0 auto;
+
+	@media(max-width:411px)
+	{
+		height:auto;
+	}
+}
+
+#graphic-design-item-container
+{
+	width: 100%;
+    display: inline-block;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+
+.graphic-design-item
+{
+	padding: 1em;
+    float: left;
+    height: 200px;
+
+    opacity:1;
+    margin-top:0;
+    
+	transition:all 0.5s;
+
+	
+   
+
+	@media(max-width:1400px)
+	{
+		width:calc(90vw/2);
+	}
+	@media(max-width:1080px)
+	{
+		width:calc(90vw/2);
+	}
+	@media(max-width:768px)
+	{
+		width:calc(90vw/1);
+	}
+	@media(max-width:411px)
+	{
+		width:calc(90vw/1);
+	}
+
+	.graphic-design-link-item
+	{
+
+		display: flex;
+	    flex-direction: column;
+	    flex-wrap: nowrap;
+	    justify-content: center;
+	    align-items: center;
+		padding: 1rem;
+		background-color:rgba(0, 0, 0, 1);
+		border:1px solid #fff;
+		height:100%;
+		width:100%;
+		p
+		{
+			font-size:.75em;
+			padding:0.5em;
+		}
+
+	}
+}
+div.graphic-design-item.hide
+{
+	margin-top:-200px;
+	opacity:0;
+}
+.reveal
+{
+	opacity:1;
+}
+
+
+
+
+

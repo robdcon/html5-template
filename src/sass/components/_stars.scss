@@ -1,0 +1,102 @@
+#stars-container
+{
+	position:absolute;
+	background-color:#000;
+}
+.stars
+{
+	position:absolute;
+	display: inline-block;
+	height:500px;
+	width:1000px;
+	background-repeat:repeat;
+}
+
+// Animations
+.starsone
+{
+	background-image: url(../img/stars-front.png);
+	animation: starsone 60s linear infinite;
+	//margin-left: -500px;
+	opacity: 0.7;	
+	
+}
+
+@keyframes starsone
+{
+	0%{margin-left: -500px}
+	100%{margin-left: 500px	}
+}
+
+.starstwo 
+{
+	background-image: url(../img/stars-middle.png);
+	animation: starstwo 80s linear infinite;	
+	//margin-left: -500px;
+	opacity: 0.5;
+}
+
+@keyframes starstwo 
+{
+	0%{margin-left: -500px}
+	100%{margin-left: 500px	}
+}
+
+
+.starsthree 
+{
+	background-image: url(../img/stars-back.png);
+	animation: starsthree 120s linear infinite;	
+	//margin-left: -500px;
+	opacity: 0.6;
+}
+
+@keyframes starsthree 
+{
+	0%{margin-left: -500px}
+	100%{margin-left: 500px	}
+}
+
+.starsfour
+{
+	background-image: url(../img/stars-front.png);
+	animation: starsfour 60s linear infinite;
+	//margin-left: 500px;
+	opacity: 0.8;	
+	
+}
+
+@keyframes starsfour
+{
+	0%{margin-left: 500px}
+	100%{margin-left: 1000px}
+}
+
+.starsfive 
+{
+	background-image: url(../img/stars-middle.png);
+	animation: starsfive 80s linear infinite;	
+	//margin-left: -500px;
+	opacity: 0.6;
+}
+
+@keyframes starsfive 
+{
+	0%{margin-left: 500px}
+	100%{margin-left: 1000px}
+}
+
+
+.starssix 
+{
+	background-image: url(../img/stars-back.png);
+	animation: starssix 120s linear infinite;	
+	//margin-left: -500px;
+	opacity: 0.6;
+}
+
+@keyframes starssix 
+{
+	0%{margin-left: 500px}
+	100%{margin-left: 1000px}
+}
